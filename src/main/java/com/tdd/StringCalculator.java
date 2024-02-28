@@ -1,15 +1,13 @@
 package com.tdd;
 
-import org.springframework.util.StringUtils;
+import static org.springframework.util.StringUtils.isEmpty;
 
 public class StringCalculator {
 
     public int add(String s) {
-        if(s==""){
+        if(isEmpty(s)){
             return 0;
         }
-        else {
-            return Integer.parseInt(s);
-        }
+        return Integer.parseInt(s);
     }
 }
