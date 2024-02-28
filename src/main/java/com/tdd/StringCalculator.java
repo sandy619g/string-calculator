@@ -30,6 +30,7 @@ public class StringCalculator {
                         negatives.add(s);
                     }
                 })
+                .filter(num -> Integer.parseInt(num) <= 1000)
                 .mapToInt(Integer::parseInt)
                 .sum();
         if(!negatives.isEmpty()){

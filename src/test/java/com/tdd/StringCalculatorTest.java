@@ -54,4 +54,10 @@ public class StringCalculatorTest {
             stringCalculator.add("1,-2,-3,-9");
         }).getMessage());
     }
+
+    @Test
+    public void testNumberGreaterThan1000(){
+        assertEquals(1002,stringCalculator.add("1000,2"));
+        assertEquals(2,stringCalculator.add("1001,2"));
+    }
 }
