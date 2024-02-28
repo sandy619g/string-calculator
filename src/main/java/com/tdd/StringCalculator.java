@@ -10,7 +10,7 @@ public class StringCalculator {
         if(isEmpty(numbers)){
             return 0;
         }
-        return Arrays.stream(numbers.split(","))
+        return Arrays.stream(numbers.split("[,\\n]"))
                 .map(Integer::parseInt)
                 .reduce(0,Integer::sum);
     }

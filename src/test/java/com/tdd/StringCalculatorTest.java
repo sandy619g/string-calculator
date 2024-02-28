@@ -26,6 +26,10 @@ public class StringCalculatorTest {
     public void testMultipleNumbers(){
         assertEquals(18,stringCalculator.add("1,5,12"));
     }
-    
+
+    @Test
+    public void testNewLineDelimiter(){
+        assertEquals(16,stringCalculator.add("1\n2,13"));
+    }
 
 }
