@@ -22,6 +22,9 @@ public class StringCalculator {
                     if (isEmpty(s)) {
                         throw new IllegalArgumentException("Input contains an invalid value.");
                     }
+                    if(Integer.parseInt(s)<0){
+                        throw new IllegalArgumentException("negative numbers not allowed "+s);
+                    }
                 })
                 .mapToInt(Integer::parseInt)
                 .sum();

@@ -44,4 +44,9 @@ public class StringCalculatorTest {
         assertEquals(3,stringCalculator.add("//;\n1;2"));
         assertEquals(35,stringCalculator.add("//#\n10#25"));
     }
+
+    @Test
+    public void testNegativeNumbers(){
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("1,-2"));
+    }
 }
