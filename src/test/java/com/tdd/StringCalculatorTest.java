@@ -43,4 +43,8 @@ public class StringCalculatorTest {
         assertThrows(IllegalArgumentException.class,()->stringCalculator.add("1,\n,2"));
     }
 
+    @Test
+    public void testCustomDelimiter(){
+        assertEquals(3,stringCalculator.add("//;\n1;2"));
+    }
 }
