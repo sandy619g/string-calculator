@@ -16,6 +16,11 @@ public class StringCalculatorTest {
     public void testSingleNumber(){
         assertEquals(1,stringCalculator.add("1"));
     }
+
+    @Test
+    public void testTwoNumbers(){
+        assertEquals(6,stringCalculator.add("1,5"));
+    }
     
 
 }

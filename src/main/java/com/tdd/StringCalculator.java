@@ -4,10 +4,15 @@ import static org.springframework.util.StringUtils.isEmpty;
 
 public class StringCalculator {
 
-    public int add(String s) {
-        if(isEmpty(s)){
+    public int add(String numbers) {
+        if(isEmpty(numbers)){
             return 0;
         }
-        return Integer.parseInt(s);
+        String[] nums = numbers.split(",");
+        int sum = 0;
+        for (String num : nums) {
+            sum += Integer.parseInt(num);
+        }
+        return sum;
     }
 }
