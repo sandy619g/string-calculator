@@ -1,5 +1,7 @@
 package com.tdd;
 
+import java.util.Arrays;
+
 import static org.springframework.util.StringUtils.isEmpty;
 
 public class StringCalculator {
@@ -8,11 +10,8 @@ public class StringCalculator {
         if(isEmpty(numbers)){
             return 0;
         }
-        String[] nums = numbers.split(",");
-        int sum = 0;
-        for (String num : nums) {
-            sum += Integer.parseInt(num);
-        }
-        return sum;
+        return Arrays.stream(numbers.split(","))
+                .map(Integer::parseInt)
+                .reduce(0,Integer::sum);
     }
 }
