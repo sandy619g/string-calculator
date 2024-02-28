@@ -10,8 +10,14 @@ public class StringCalculator {
         if(isEmpty(numbers)){
             return 0;
         }
-        return Arrays.stream(numbers.split("[,\\n]"))
-                .map(Integer::parseInt)
-                .reduce(0,Integer::sum);
+        return Arrays.stream(numbers.split("[,\n]"))
+                .peek(s -> {
+                    if (isEmpty(s)) {
+                        throw new IllegalArgumentException("Input contains an invalid value.");
+                    }
+                })
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
+
 }

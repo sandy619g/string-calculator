@@ -2,6 +2,7 @@ package com.tdd;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
 
@@ -30,6 +31,11 @@ public class StringCalculatorTest {
     @Test
     public void testNewLineDelimiter(){
         assertEquals(16,stringCalculator.add("1\n2,13"));
+    }
+
+    @Test
+    public void testInvalidLineDelimiter(){
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("1,\n,2"));
     }
 
 }
