@@ -24,12 +24,8 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void testTwoNumbers(){
-        assertEquals(6,stringCalculator.add("1,5"));
-    }
-
-    @Test
     public void testMultipleNumbers(){
+        assertEquals(6,stringCalculator.add("1,5"));
         assertEquals(18,stringCalculator.add("1,5,12"));
     }
 
@@ -46,5 +42,6 @@ public class StringCalculatorTest {
     @Test
     public void testCustomDelimiter(){
         assertEquals(3,stringCalculator.add("//;\n1;2"));
+        assertEquals(35,stringCalculator.add("//#\n10#25"));
     }
 }
