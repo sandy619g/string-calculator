@@ -5,6 +5,11 @@ import org.springframework.util.StringUtils;
 public class StringCalculator {
 
     public int add(String s) {
-        return 0;
+        if(s==""){
+            return 0;
+        }
+        else {
+            return Integer.parseInt(s);
+        }
     }
 }

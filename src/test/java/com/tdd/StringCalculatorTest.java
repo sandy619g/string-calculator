@@ -11,6 +11,11 @@ public class StringCalculatorTest {
     public void testEmptyString(){
         assertEquals(0,stringCalculator.add(""));
     }
+
+    @Test
+    public void testSingleNumber(){
+        assertEquals(1,stringCalculator.add("1"));
+    }
     
 
 }
