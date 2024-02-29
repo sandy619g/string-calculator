@@ -21,7 +21,7 @@ public class StringCalculator {
             numbers = numbers.substring(delimiterIndex + 1);
         }
         List<String> negatives = new ArrayList<>();
-        int sum = Arrays.stream(numbers.split("[,\n" + delimiter + "]"))
+        int sum = Arrays.stream(numbers.split(java.util.regex.Pattern.quote(delimiter) + "|,|\n"))
                 .peek(s -> {
                     if (isEmpty(s)) {
                         throw new IllegalArgumentException("Input contains an invalid value.");

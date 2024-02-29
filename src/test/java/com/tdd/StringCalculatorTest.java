@@ -60,4 +60,9 @@ public class StringCalculatorTest {
         assertEquals(1002,stringCalculator.add("1000,2"));
         assertEquals(2,stringCalculator.add("1001,2"));
     }
+
+    @Test
+    public void testCustomLengthDelimiter(){
+        assertEquals(6,stringCalculator.add("//***\n1***2***3"));
+    }
 }
