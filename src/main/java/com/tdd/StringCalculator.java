@@ -7,6 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.join;
+import static java.util.regex.Pattern.compile;
+import static java.util.regex.Pattern.quote;
 import static org.springframework.util.StringUtils.isEmpty;
 
 public class StringCalculator {
@@ -27,22 +29,23 @@ public class StringCalculator {
                     if (isEmpty(s)) {
                         throw new IllegalArgumentException("Input contains an invalid value.");
                     }
-                    if(Integer.parseInt(s)<0){
-                        negatives.add(s);
+                    try {
+                        if(Integer.parseInt(s)<0){
+                            negatives.add(s);
+                        }
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Input contains a non-integer value.");
                     }
                 })
                 .filter(num -> Integer.parseInt(num) <= 1000)
                 .mapToInt(Integer::parseInt)
                 .sum();
-        if(!negatives.isEmpty()){
-            throw new IllegalArgumentException("negative numbers not allowed "+join(",",negatives));
-        }
+        handleNegatives(negatives);
         return sum;
     }
 
     private String getCustomDelimeter(String numbers) {
-        int delimiterIndex = numbers.indexOf("\n");
-        delimiter = numbers.substring(2, delimiterIndex);
+        delimiter = numbers.substring(2, numbers.indexOf("\n"));
         if(delimiter.length()>1) {
             delimiter = getCustLengthDelimiter(delimiter);
         }
@@ -52,11 +55,11 @@ public class StringCalculator {
     private String getCustLengthDelimiter(String numbers) {
         StringBuilder patternBuilder = new StringBuilder();
 
-        Pattern pattern = Pattern.compile("\\[(.*?)]");
+        Pattern pattern = compile("\\[(.*?)]");
         Matcher matcher = pattern.matcher(numbers);
 
         while (matcher.find()) {
-            patternBuilder.append(Pattern.quote(matcher.group(1)));
+            patternBuilder.append(quote(matcher.group(1)));
             patternBuilder.append("|");
         }
         patternBuilder.append(",");
@@ -69,4 +72,9 @@ public class StringCalculator {
         return index != -1 ? numbers.substring(index + 1) : numbers;
     }
 
+    private void handleNegatives(List<String> negatives) {
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("negative numbers not allowed " + join(",", negatives));
+        }
+    }
 }
