@@ -19,12 +19,7 @@ public class StringCalculator {
             return 0;
         }
         if (numbers.startsWith("//")) {
-            int delimiterIndex = numbers.indexOf("\n");
-            delimiter = numbers.substring(2, delimiterIndex);
-            numbers = numbers.substring(delimiterIndex + 1);
-            if(delimiter.length()>1) {
-                delimiter = getCustDelimiter(delimiter);
-            }
+            numbers = getCustomDelimeter(numbers);
         }
         List<String> negatives = new ArrayList<>();
         int sum = Arrays.stream(numbers.split(quote(delimiter) + "|,|\n"))
@@ -45,16 +40,21 @@ public class StringCalculator {
         return sum;
     }
 
-    private String getCustDelimiter(String delimiter) {
+    private String getCustomDelimeter(String numbers) {
+        int delimiterIndex = numbers.indexOf("\n");
+        delimiter = numbers.substring(2, delimiterIndex);
+        numbers = numbers.substring(delimiterIndex + 1);
+        if(delimiter.length()>1) {
+            delimiter = getCustLengthDelimiter(delimiter);
+        }
+        return numbers;
+    }
+
+    private String getCustLengthDelimiter(String delimiter) {
         String patternString = "\\[(.*?)\\]";
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(delimiter);
-
-        if (matcher.find()) {
-            return matcher.group(1);
-        } else {
-            return "";
-        }
+        return matcher.find() ? matcher.group(1) : "";
     }
 
 }
