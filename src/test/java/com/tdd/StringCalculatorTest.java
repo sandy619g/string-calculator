@@ -101,6 +101,8 @@ public class StringCalculatorTest {
     public void testCustomOddEvenDelimiter(){
         assertEquals(4,stringCalculator.add("//0\n1,2,3,4"));
         assertEquals(4,stringCalculator.add("//0\n1,2,3,0,4"));
+        assertEquals(6,stringCalculator.add("//1\n0,2,3,4"));
+        assertEquals(6,stringCalculator.add("//1\n0,2,3,1,4"));
     }
 
 }

@@ -83,13 +83,11 @@ public class StringCalculator {
     }
 
     private String getNumbersString(String numbers,String delimiter) {
-        if(!delimiter.equals("0")){
-           return getNumbersString(numbers);
-        }
-        else{
+        if(delimiter.equals("0")) {
             this.delimiter = DEFAULT_DELIMITER;
             int index = numbers.indexOf("\n");
             numbers = index != -1 ? numbers.substring(index + 1) : numbers;
+
             List<String> myNumbers = List.of(numbers.split("[,0]"));
             List<Integer> myList = myNumbers.stream()
                     .filter(num -> !num.isEmpty())
@@ -103,6 +101,24 @@ public class StringCalculator {
                     .collect(Collectors.joining(","));
         }
 
+        if(delimiter.equals("1")) {
+            this.delimiter = DEFAULT_DELIMITER;
+            int index = numbers.indexOf("\n");
+            numbers = index != -1 ? numbers.substring(index + 1) : numbers;
+
+            List<String> myNumbers = List.of(numbers.split("[,1]"));
+            List<Integer> myList = myNumbers.stream()
+                    .filter(num -> !num.isEmpty())
+                    .mapToInt(Integer::parseInt)
+                    .boxed().collect(Collectors.toList());
+
+            return IntStream.range(0, myList.size())
+                    .filter(i -> i % 2 != 0)
+                    .mapToObj(myList::get)
+                    .map(Object::toString)
+                    .collect(Collectors.joining(","));
+        }
+        return getNumbersString(numbers);
     }
 
     private void handleNegatives(List<String> negatives) {
