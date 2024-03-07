@@ -94,4 +94,13 @@ public class StringCalculatorTest {
         });
     }
 
+    @Test
+    @DisplayName("should return sum for custom delimiter")
+    //0 only sum the num even indices
+    //1 then odd indices
+    public void testCustomOddEvenDelimiter(){
+        assertEquals(4,stringCalculator.add("//0\n1,2,3,4"));
+        assertEquals(4,stringCalculator.add("//0\n1,2,3,0,4"));
+    }
+
 }

@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.lang.String.join;
 import static java.util.regex.Pattern.compile;
@@ -12,6 +15,8 @@ import static java.util.regex.Pattern.quote;
 import static org.springframework.util.StringUtils.isEmpty;
 
 public class StringCalculator {
+
+    public String DEFAULT_DELIMITER = "[,\n]";
 
     public String delimiter = "[,\n]";
 
@@ -21,11 +26,12 @@ public class StringCalculator {
         }
         if (numbers.startsWith("//")) {
             delimiter = getCustomDelimeter(numbers);
-            numbers = getNumbersString(numbers);
+            numbers = getNumbersString(numbers,delimiter);
         }
         List<String> negatives = new ArrayList<>();
         int sum = Arrays.stream(numbers.split(delimiter))
                 .peek(s -> {
+
                     if (isEmpty(s)) {
                         throw new IllegalArgumentException("Input contains an invalid value.");
                     }
@@ -38,9 +44,13 @@ public class StringCalculator {
                     }
                 })
                 .filter(num -> Integer.parseInt(num) <= 1000)
+
                 .mapToInt(Integer::parseInt)
                 .sum();
         handleNegatives(negatives);
+
+
+
         return sum;
     }
 
@@ -70,6 +80,29 @@ public class StringCalculator {
     private String getNumbersString(String numbers) {
         int index = numbers.indexOf("\n");
         return index != -1 ? numbers.substring(index + 1) : numbers;
+    }
+
+    private String getNumbersString(String numbers,String delimiter) {
+        if(!delimiter.equals("0")){
+           return getNumbersString(numbers);
+        }
+        else{
+            this.delimiter = DEFAULT_DELIMITER;
+            int index = numbers.indexOf("\n");
+            numbers = index != -1 ? numbers.substring(index + 1) : numbers;
+            List<String> myNumbers = List.of(numbers.split("[,0]"));
+            List<Integer> myList = myNumbers.stream()
+                    .filter(num -> !num.isEmpty())
+                    .mapToInt(Integer::parseInt)
+                    .boxed().collect(Collectors.toList());
+
+            return IntStream.range(0, myList.size())
+                    .filter(i -> i % 2 == 0)
+                    .mapToObj(myList::get)
+                    .map(Object::toString)
+                    .collect(Collectors.joining(","));
+        }
+
     }
 
     private void handleNegatives(List<String> negatives) {
