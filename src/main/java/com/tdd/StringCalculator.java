@@ -88,8 +88,8 @@ public class StringCalculator {
             int index = numbers.indexOf("\n");
             numbers = index != -1 ? numbers.substring(index + 1) : numbers;
 
-            String[] delimiterOptions = delimiter.equals("0") ? new String[]{"[,0]"} : new String[]{"[,1]"};
-            List<String> myNumbers = List.of(numbers.split(delimiterOptions[0]));
+            String oddEvenDelimiter = delimiter.equals("0") ? "[,0]" : "[,1]";
+            List<String> myNumbers = List.of(numbers.split(oddEvenDelimiter));
             List<Integer> myList = myNumbers.stream()
                     .filter(num -> !num.isEmpty())
                     .map(Integer::parseInt)
