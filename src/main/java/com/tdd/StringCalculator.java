@@ -82,44 +82,29 @@ public class StringCalculator {
         return index != -1 ? numbers.substring(index + 1) : numbers;
     }
 
-    private String getNumbersString(String numbers,String delimiter) {
-        if(delimiter.equals("0")) {
+    private String getNumbersString(String numbers, String delimiter) {
+        if (delimiter.equals("0") || delimiter.equals("1")) {
             this.delimiter = DEFAULT_DELIMITER;
             int index = numbers.indexOf("\n");
             numbers = index != -1 ? numbers.substring(index + 1) : numbers;
 
-            List<String> myNumbers = List.of(numbers.split("[,0]"));
+            String[] delimiterOptions = delimiter.equals("0") ? new String[]{"[,0]"} : new String[]{"[,1]"};
+            List<String> myNumbers = List.of(numbers.split(delimiterOptions[0]));
             List<Integer> myList = myNumbers.stream()
                     .filter(num -> !num.isEmpty())
-                    .mapToInt(Integer::parseInt)
-                    .boxed().collect(Collectors.toList());
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
 
+            boolean isEven = delimiter.equals("0");
             return IntStream.range(0, myList.size())
-                    .filter(i -> i % 2 == 0)
-                    .mapToObj(myList::get)
-                    .map(Object::toString)
-                    .collect(Collectors.joining(","));
-        }
-
-        if(delimiter.equals("1")) {
-            this.delimiter = DEFAULT_DELIMITER;
-            int index = numbers.indexOf("\n");
-            numbers = index != -1 ? numbers.substring(index + 1) : numbers;
-
-            List<String> myNumbers = List.of(numbers.split("[,1]"));
-            List<Integer> myList = myNumbers.stream()
-                    .filter(num -> !num.isEmpty())
-                    .mapToInt(Integer::parseInt)
-                    .boxed().collect(Collectors.toList());
-
-            return IntStream.range(0, myList.size())
-                    .filter(i -> i % 2 != 0)
+                    .filter(i -> i % 2 == (isEven ? 0 : 1))
                     .mapToObj(myList::get)
                     .map(Object::toString)
                     .collect(Collectors.joining(","));
         }
         return getNumbersString(numbers);
     }
+
 
     private void handleNegatives(List<String> negatives) {
         if (!negatives.isEmpty()) {
