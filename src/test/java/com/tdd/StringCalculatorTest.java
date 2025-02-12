@@ -10,13 +10,13 @@ public class StringCalculatorTest {
     public StringCalculator stringCalculator = new StringCalculator();
 
     @Test
-    @DisplayName("should return a 0 when an empty string")
+    @DisplayName("should return 0 when an empty string")
     public void testEmptyString(){
         assertEquals(0,stringCalculator.add(""));
     }
 
     @Test
-    @DisplayName("should return a 0 when null string")
+    @DisplayName("should return 0 when null string")
     public void testNullString(){
         assertEquals(0,stringCalculator.add(null));
     }
